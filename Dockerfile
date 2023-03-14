@@ -1,15 +1,12 @@
 FROM python:3.9-slim
 
 WORKDIR /app
-ADD main.py /app
-ADD requirements.txt /app
-ADD lang.py /app
-
-RUN pip install -r requirements.txt
+COPY main.py requirements.txt lang.py /app/
 
 ENV api_url=""
 ENV api_key=""
 ENV taskid=""
 ENV lang=""
 
-CMD python -u /app/main.py -api_url=$api_url -api_key=$api_key -taskid=$taskid -lang=$lang
+RUN pip install -r requirements.txt
+CMD python -u main.py -api_url=$api_url -api_key=$api_key -taskid=$taskid -lang=$lang
